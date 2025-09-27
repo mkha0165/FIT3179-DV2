@@ -1,0 +1,51 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Choropleth: Number of movies by country",
+  "width": 900,
+  "height": 480,
+  "projection": {"type": "equirectangular"},
+  "layer": [
+    {
+      "data": {
+        "url": "countries.geojson",
+        "format": {"type": "json", "property": "features"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.Name",
+          "from": {
+            "data": {"url": "country_aggregates.csv"},
+            "key": "country",
+            "fields": ["movie_count", "total_gross", "avg_score"]
+          }
+        }
+      ],
+      "mark": {"type": "geoshape", "stroke": "#777", "strokeWidth": 0.35},
+      "encoding": {
+        "color": {
+          "field": "movie_count",
+          "type": "quantitative",
+          "scale": {"scheme": "blues"},
+          "title": "Number of movies"
+        },
+        "tooltip": [
+          {"field": "properties.ADMIN", "type": "nominal", "title": "Country"},
+          {"field": "movie_count", "type": "quantitative", "title": "Movie count"},
+          {"field": "total_gross", "type": "quantitative", "title": "Total gross (USD)"},
+          {"field": "avg_score", "type": "quantitative", "title": "Avg score"}
+        ]
+      }
+    },
+    {
+     "data": {
+        "url": "https://cdn.jsdelivr.net/npm/vega-datasets@2/data/graticule.json"
+      },
+      "mark": {"type": "geoshape", "fill": null, "stroke": "#d6d6d6", "opacity": 0.6}
+    }
+  ],
+  "title": {
+    "text": "Movies produced by country (count)",
+    "subtitle": "Kaggle movies (1986 to 2016)  aggregated by country",
+    "anchor": "middle"
+  }
+}
