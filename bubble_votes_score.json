@@ -1,6 +1,5 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Average Votes vs Average Movie Score by Genre",
   "width": 400,
   "height": 400,
   "data": {
@@ -57,5 +56,10 @@
       {"field": "avg_votes", "type": "quantitative", "format": ",", "title": "Avg Votes"},
       {"field": "total_gross", "type": "quantitative", "format": ",", "title": "Total Gross (USD)"}
     ]
-  }
+  },
+  "title": {
+  "text": "Average Votes vs Average Movie Score by Genre",
+  "anchor": "middle",
+  "fontSize": 15
+}
 }
