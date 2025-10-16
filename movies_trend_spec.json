@@ -1,0 +1,89 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 540,
+  "height": 454,
+  "data": { "url": "movies_merged.csv" },
+  "transform": [
+    { "filter": "datum.gross > 0" },
+    { "calculate": "toNumber(datum.year)", "as": "year_num" },
+    { "filter": "(datum.year_num % 2) == 0" }
+  ],
+  
+  "encoding": {
+    "x": {
+      "field": "year_num",
+      "type": "ordinal",
+      "title": "Year of Release",
+      "axis": { "labelAngle": 0, "labelFontSize": 11, "titleFontSize": 13 }
+    }
+  },
+
+  "layer": [
+    {
+      "mark": { "type": "bar" },
+      "encoding": {
+        "y": {
+          "aggregate": "sum",
+          "field": "gross",
+          "title": "Total Gross Revenue (USD)"
+        },
+        "color": {
+          "field": "genre",
+          "type": "nominal",
+          "title": "Genre",
+          "scale": {
+          "domain": [
+            "Action", "Adventure", "Animation", "Biography", "Comedy", "Crime",
+            "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Musical",
+            "Mystery", "Romance", "Sci-Fi", "Sport", "Thriller", "Western"
+          ],
+          "range": [
+            "#1f77b4", "#ff7f0e", "#2ca02c", "#9467bd", "#8c564b", "#e377c2",
+            "#7f7f7f", "#bcbd22", "#17becf", "#9edae5", "#d62728", "#ffbb78",
+            "#c49c94", "#c5b0d5", "#f7b6d2", "#17becf", "#aec7e8", "#b15928", "#393b79"
+          ]
+        }
+        },
+        "tooltip": [
+          { "field": "year_num", "type": "quantitative", "title": "Year" },
+          { "field": "genre", "type": "nominal", "title": "Genre" },
+          {
+            "aggregate": "sum",
+            "field": "gross",
+            "type": "quantitative",
+            "title": "Total Gross (USD)",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "mark": { "type": "line", "color": "black", "strokeWidth": 2, "interpolate": "monotone" },
+      "encoding": {
+        "x": { "field": "year_num", "type": "ordinal" },
+        "y": {
+          "aggregate": "sum",
+          "field": "gross"
+        },
+        "tooltip": [
+          { "field": "year_num", "type": "quantitative", "title": "Year" },
+          {
+            "aggregate": "sum",
+            "field": "gross",
+            "type": "quantitative",
+            "format": ","
+          }
+        ]
+      }
+    }
+  ],
+
+  "title": {
+    "text": "Total Gross Revenue by Year and Genre",
+    "anchor": "middle",
+    "fontSize": 15
+  },
+  "config": {
+    "axis": { "labelFontSize": 12, "titleFontSize": 14 }
+  }
+}

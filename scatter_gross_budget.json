@@ -1,0 +1,92 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 590,
+  "height": 400,
+  "data": { "url": "movies_merged.csv" },
+  "transform": [
+    { "filter": "datum.budget > 0 && datum.gross > 0" }
+  ],
+  "mark": {
+    "type": "point",
+    "filled": true,
+    "size": 150,
+    "stroke": "black",
+    "strokeWidth": 0.5
+  },
+  "encoding": {
+    "x": {
+      "aggregate": "mean",
+      "field": "budget",
+      "type": "quantitative",
+      "title": "Average Budget (USD)",
+      "scale": { 
+        "type": "log",
+        "base": 10
+      },
+      "axis": { 
+        "labelFontSize": 12, 
+        "titleFontSize": 14,
+        "values": [1000000, 10000000, 100000000, 1000000000],
+        "format": "~s"
+      }
+    },
+    "y": {
+      "aggregate": "mean",
+      "field": "gross",
+      "type": "quantitative",
+      "title": "Average Gross Revenue (USD)",
+      "scale": { 
+        "type": "log",
+        "base": 10
+      },
+      "axis": { 
+        "labelFontSize": 12, 
+        "titleFontSize": 14,
+        "values": [1000000, 10000000, 100000000, 1000000000],
+        "labelExpr": "if(datum.value >= 1000000000, replace(format(datum.value/1000000000, '.1f') + 'B', '.0', ''), if(datum.value >= 1000000, replace(format(datum.value/1000000, '.1f') + 'M', '.0', ''), format(datum.value, ',')))"
+      }
+    },
+    "color": {
+      "field": "genre",
+      "type": "nominal",
+      "title": "Genre",
+      "scale": {
+        "domain": [
+          "Action", "Adventure", "Animation", "Biography", "Comedy", "Crime",
+          "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Musical",
+          "Mystery", "Romance", "Sci-Fi", "Sport", "Thriller", "Western"
+        ],
+        "range": [
+          "#1f77b4", "#ff7f0e", "#2ca02c", "#9467bd", "#8c564b", "#e377c2",
+          "#7f7f7f", "#bcbd22", "#17becf", "#9edae5", "#d62728", "#ffbb78",
+          "#c49c94", "#c5b0d5", "#f7b6d2", "#17becf", "#aec7e8", "#b15928", "#393b79"
+        ]
+      }
+    },
+    "tooltip": [
+      { "field": "genre", "type": "nominal", "title": "Genre" },
+      {
+        "aggregate": "mean",
+        "field": "budget",
+        "type": "quantitative",
+        "title": "Average Budget (USD)",
+        "format": ","
+      },
+      {
+        "aggregate": "mean",
+        "field": "gross",
+        "type": "quantitative",
+        "title": "Average Gross (USD)",
+        "format": ","
+      }
+    ]
+  },
+  "title": {
+    "text": "Average Gross Revenue vs. Average Budget by Genre",
+    "anchor": "middle",
+    "fontSize": 15
+  },
+  "config": {
+    "axis": { "grid": true, "gridColor": "#f0f0f0" }
+  }
+}

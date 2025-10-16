@@ -4,35 +4,131 @@
   <meta charset="utf-8">
   <title>Movies By Country</title>
   <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.2.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.17.0/build/vega-lite.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.20.8"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f5f5f5;
-      text-align: center; /* Center-aligns inline elements (like h2) */
-    }
-    #container {
-      display: flex;
-      justify-content: center; /* centers horizontally */
-    }
-    #vis {
-      background-color: white;
-      padding: 10px;
-      border-radius: 5px;
-      box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h2>Global Movie Production & Revenue (1986 to 2016)</h2>
-  <div id="vis"></div>
+  <h2><u>Global Patterns in Movie Success</u> 🎬</h2>
+  <p style="max-width: 1300px; margin: 0 auto; text-align: center; text-indent: 2em;">
+    Between <strong>1980 and 2020</strong>, the <strong>global film industry</strong> experienced remarkable growth and diversity. 
+    Countries contributed in different ways, from sheer volume of movie production to box office 
+    revenue and audience ratings. These <strong>patterns</strong> reveal not only the scale of cinematic output 
+    but also the cultural reach and impact of films worldwide.
+  </p>
+
+  <!-- === Choropleth Map and Text Analysis === -->
+  <div class="container">
+    <div id="vis"></div>
+    <div class="analysis">
+      <p><strong>United States of America</strong> dominates the global film industry, contributing the highest <span class="highlight-revenue">movie count</span> and nearly <span class="highlight-revenue">$500 billion in total gross revenue</span>.</p>
+
+      <p>Since the choropleth highlights countries by revenue intensity, it reveals a clear concentration of commercial power in the <strong>US and UK</strong>, followed by <strong>France, Germany, Canada, and Japan</strong>.</p>
+
+      <p>For the majority of other nations, there is a visible gap between <span class="highlight-score">moderate production output</span> and <span class="highlight-revenue">comparatively lower revenues</span>, though many smaller countries (e.g., <strong>Lebanon, North Macedonia, Iceland</strong>) report <span class="highlight-score">high IMDb averages</span>, reflecting strong critical reception despite limited output.</p>
+
+      <p>This trend suggests that while <strong>box office dominance</strong> is centered in a few regions, <strong>critical acclaim and cultural impact</strong> are more evenly distributed worldwide. Factors such as <strong>global reach, distribution networks, and market size</strong> appear as decisive as <strong>film quality</strong> in shaping overall movie success.</p>
+    </div>
+  </div>
+
+  <!-- === Stacked bar + line === -->
+  <div class="container side-by-side">
+    <div class="chart-container">
+      <div id="vis2"></div>
+      <div class="analysis2">
+        <p>From the late <strong>1980s</strong> to the <strong>mid-2016s</strong>, there is a steady upward trend in <strong>total revenue</strong>, peaking around <strong>2016</strong> & followed by a noticable decline after <strong>2017</strong>.<br>
+          <br><strong>Genres</strong> such as <strong><span class="genre-action">Action</span></strong>, 
+      <strong><span class="genre-adventure">Adventure</span></strong>, and <strong><span class="genre-animation">Animation</span></strong> dominate box office <strong>revenue</strong>, particularly after the <strong>1986</strong>, reflecting growing investments and audience preferences for large-scale productions.
+          Meanwhile, <strong><span class="genre-drama">Drama</span></strong>, 
+      <strong><span class="genre-comedy">Comedy</span></strong>, and 
+      <strong><span class="genre-crime">Crime</span></strong> maintain relatively stable but smaller contributions throughout the years.</p>
+      </div>
+    </div>
+    
+    <!-- === Column chart === -->
+    <div class="chart-container">
+      <div id="vis3"></div>
+      <div class="analysis3">
+        <p>
+          <strong><span class="genre-history">History</span></strong>, <strong><span class="genre-music">Music</span></strong> and <strong><span class="genre-musical">Musical</span></strong>
+          films achieve the <strong>highest average scores</strong>, suggesting that audiences and critics tend to rate these genres more favorably, 
+          possibly due to their strong storytelling, artistic depth, or biographical significance. <br><br>Whereas, genres such as 
+          <strong><span class="genre-sport">Sport</span></strong>, <strong><span class="genre-horror">Horror</span></strong>, and <strong><span class="genre-western">Western</span></strong>
+          have <strong>lower average scores</strong>, indicating more mixed or divided reception.
+        </p>
+      </div>
+    </div>
+  </div>
+
+    <!-- === Scatterplot and Horizontal Bar Chart Side by Side === -->
+  <div class="container side-by-side">
+    <!-- Scatterplot -->
+    <div class="chart-container">
+      <div id="vis4"></div>
+      <div class="analysis4">
+        <p>
+        <strong>High-budget</strong> genres such as <strong><span class="genre-action">Action</span></strong>, <strong><span class="genre-family">Family</span></strong>, 
+        and <strong><span class="genre-animation">Animation</span></strong> tend to generate significantly <strong>higher gross revenues</strong>, 
+        reflecting their strong box office appeal and global audience reach. Meanwhile, <strong>lower-budget</strong> genres like <strong><span class="genre-romance">Romance</span></strong>, <strong><span class="genre-western">Western</span></strong>, 
+        and <strong><span class="genre-sci-fi">Sci-Fi</span></strong> generate comparatively lower revenues but may offer higher profitability ratios due to lower production costs. 
+        <br><br><strong>Overall</strong>, the trend suggests that <strong>larger</strong> financial investments generally lead to <strong>higher</strong> total returns, particularly for commercially driven genres
+        </p>
+      </div>
+    </div>
+    
+    <!-- Horizontal Bar Chart -->
+    <div class="chart-container">
+      <div id="vis5"></div>
+      <div class="analysis5">
+        <p>
+        The <strong>Top 10 production companies</strong> collectively dominate the global box office, led by <strong>Warner Bros., Universal Pictures, and 
+        Columbia Pictures</strong>, each surpassing <strong>$40 billion</strong> in <strong>total gross revenue</strong>. 
+        <br><br>This <strong>highlights</strong> the market concentration within a few <strong>major studios</strong> that benefit from global franchises, expansive 
+        distribution, and consistent blockbuster output, leaving smaller studios with comparatively limited box office influence.
+        </p>
+      </div>
+    </div>
+  </div>
+
+    <!-- === Movie Count by Runtime (Histogram) + Bubble Chart Side by Side === -->
+  <div class="container side-by-side">
+    <!-- Histogram -->
+    <div class="chart-container">
+      <div id="vis6"></div>
+      <div class="analysis6">
+        <p>
+        <strong>Most</strong> Movies fall between <strong>90 and 120 minutes</strong>, reflecting the standard feature-length format preferred by global audiences 
+        and distributors. <strong>Shorter films (under 80 minutes)</strong> are relatively rare, typically representing independent or documentary 
+        productions. <br><br>As runtimes increase beyond <strong>150 minutes</strong>, movie frequency declines sharply, though <strong><span class="genre-action">Action</span></strong>, 
+        <strong><span class="genre-drama">Drama</span></strong>, and <strong><span class="genre-biography">Biography</span></strong> 
+        genres remain more common in this longer range, suggesting that <strong>larger-scale narratives and production budgets</strong> often accompany 
+        extended runtimes.
+        </p>
+      </div>
+    </div>
+    
+    <!-- Bubble Chart -->
+    <div class="chart-container">
+      <div id="vis7"></div>
+      <div class="analysis7">
+        <p>
+          <strong><span class="genre-action">Action</span></strong> and <strong><span class="genre-animation">Animation</span></strong> movies tend to 
+          attract the <strong>highest number of votes</strong> while <strong><span class="genre-action">Action</span></strong> and <strong><span class="genre-comedy">Comedy</span></strong> 
+          generate the <strong>greatest total gross revenue</strong>, indicating strong audience engagement and commercial success.
+          <br><br><strong>Whereas</strong>, Genres like <strong><span class="genre-music">Music</span></strong> and <strong><span class="genre-biography">Biography</span></strong> 
+          achieve relatively <strong>higher average scores</strong> but have <strong>lower audience</strong> reach and box office performance.
+          <br><br><strong>Overall</strong>, <strong>higher popularity (votes)</strong> does not always correspond to <strong>higher IMDb scores</strong>, 
+          showing that critical reception and audience engagement can vary widely across genres.
+        </p>
+      </div>
+    </div>
+  </div>
 
   <script>
+    // --- Choropleth Map ---
     const spec = {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "width": 900,
+      "width": 700,
       "height": 500,
       "data": {
         "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
@@ -40,20 +136,13 @@
       },
       "projection": {"type": "equalEarth"},
       "layer": [
-        // Grey base (countries without data)
         {
           "transform": [
-            {
-              "calculate": "'No movie data for ' + datum.properties.NAME",
-              "as": "note"
-            }
+            {"calculate": "'No movie data for ' + datum.properties.ADMIN", "as": "note"}
           ],
           "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"},
-          "encoding": {
-            "tooltip": {"field": "note", "type": "nominal"}
-          }
+          "encoding": {"tooltip": {"field": "note", "type": "nominal"}}
         },
-        // Oceans
         {
           "data": {
             "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/7_others/oceans.topojson",
@@ -61,7 +150,6 @@
           },
           "mark": {"type": "geoshape", "fill": "skyblue"}
         },
-        // Graticules
         {
           "data": {
             "url": "https://raw.githubusercontent.com/FIT3179/Vega-Lite/main/2_symbol_map/js/WorldMapWithGraticules.topojson",
@@ -69,29 +157,27 @@
           },
           "mark": {"type": "geoshape", "fill": null, "stroke": "lightgray"}
         },
-        // Movie data overlay
         {
           "transform": [
             {
-              "lookup": "properties.NAME",
+              "lookup": "properties.ADMIN",
               "from": {
                 "data": {"url": "country_aggregates.csv"},
-                "key": "Country",
+                "key": "country",
                 "fields": ["movie_count", "total_gross", "avg_score"]
               }
-            },
+            }
           ],
           "mark": {"type": "geoshape", "stroke": "white"},
           "encoding": {
             "color": {
               "field": "total_gross",
               "type": "quantitative",
-              "scale": {"scheme": "oranges"},
-              "domain": [0, 1000000000000],
+              "scale": {"type": "log", "scheme": "oranges", "domain": [1e6, 5e11]},
               "title": "Total gross revenue (USD)"
             },
             "tooltip": [
-              {"field": "properties.NAME", "type": "nominal", "title": "Country"},
+              {"field": "properties.ADMIN", "type": "nominal", "title": "Country"},
               {"field": "movie_count", "type": "quantitative", "title": "Movies"},
               {"field": "total_gross", "type": "quantitative", "title": "Total Gross (USD)", "format": ","},
               {"field": "avg_score", "type": "quantitative", "title": "Avg IMDb Score", "format": ".2f"}
@@ -100,16 +186,47 @@
         }
       ],
       "title": {
-        "text": "Movies Produced by Country (1986 to 2016)",
-        "subtitle": "Based on Kaggle Movie Dataset",
-        "anchor": "middle"
-      },
-      "config": {}
+        "text": "Movies Produced by Country (1980 to 2020)",
+        "anchor": "middle",
+        "fontSize": 15
+      }
     };
 
+    // Embed choropleth
     vegaEmbed("#vis", spec, {mode: "vega-lite", actions: false})
       .then(console.log)
       .catch(console.warn);
+
+    // Embed stacked bar + line chart (Gross Revenue by Year)
+    vegaEmbed("#vis2", "movies_trend_spec.json", {mode: "vega-lite", actions: false})
+      .then(console.log)
+      .catch(console.warn);
+
+    // Embed Column Chart (Average Movie Score by Year)
+    vegaEmbed('#vis3', 'score_by_genre.json', {mode: "vega-lite", actions: false })
+    .then(console.log)
+    .catch(console.error);
+
+    // Embed Scatterplot (Gross by Budget)
+    vegaEmbed('#vis4', 'scatter_gross_budget.json', {mode: "vega-lite", actions: false })
+    .then(console.log)
+    .catch(console.error);
+
+    // Embed horizontal Bar Chart (Production Company by Total Gross Revenue)
+    vegaEmbed('#vis5', 'company_revenue_bar.json', {mode: "vega-lite", actions: false })
+    .then(console.log)
+    .catch(console.error);
+
+    // Embed Histogram (Movie Count by Runtime)
+    vegaEmbed('#vis6', 'runtime_histogram.json', {mode: "vega-lite", actions: false })
+    .then(console.log)
+    .catch(console.error);
+    
+    // Embed Bubble Chart (Average score by Average votes)
+    vegaEmbed('#vis7', 'bubble_votes_score.json', {mode: "vega-lite", actions: false })
+    .then(console.log)
+    .catch(console.error);
+
   </script>
 </body>
 </html>

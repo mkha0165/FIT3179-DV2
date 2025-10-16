@@ -1,0 +1,55 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 500,
+  "height": 408,
+  "data": { "url": "movies_merged.csv" },
+  "transform": [
+    { "filter": "datum.company != null && datum.gross > 0" },
+    {
+      "aggregate": [
+        { "op": "sum", "field": "gross", "as": "total_gross" }
+      ],
+      "groupby": ["company"]
+    },
+    { "window": [{ "op": "rank", "as": "rank" }], "sort": [{ "field": "total_gross", "order": "descending" }] },
+    { "filter": "datum.rank <= 10" }
+  ],
+  "mark": { "type": "bar", "cornerRadiusEnd": 4,   "color": "#1f77b4" },
+  "encoding": {
+    "y": {
+      "field": "company",
+      "type": "nominal",
+      "title": "Production Company",
+      "sort": "-x",
+      "axis": { "labelFontSize": 11, "titleFontSize": 13 }
+    },
+    "x": {
+      "field": "total_gross",
+      "type": "quantitative",
+      "title": "Total Gross Revenue (USD)",
+      "axis": {
+        "labelFontSize": 12,
+        "titleFontSize": 14,
+        "format": "~s",
+        "labelExpr": "replace(datum.label, 'G', 'B')"
+      }
+    },
+    "tooltip": [
+      { "field": "company", "type": "nominal", "title": "Company" },
+      {
+        "field": "total_gross",
+        "type": "quantitative",
+        "title": "Total Gross (USD)",
+        "format": ","
+      }
+    ]
+  },
+  "title": {
+    "text": "Top 10 Production Companies by Total Gross Revenue",
+    "anchor": "middle",
+    "fontSize": 15
+  },
+  "config": {
+    "axis": { "grid": true, "gridColor": "#f5f5f5" }
+  }
+}

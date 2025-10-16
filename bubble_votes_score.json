@@ -1,0 +1,61 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Average Votes vs Average Movie Score by Genre",
+  "width": 400,
+  "height": 400,
+  "data": {
+    "url": "movies_merged.csv"
+  },
+  "transform": [
+    {
+      "aggregate": [
+        {"op": "mean", "field": "score", "as": "avg_score"},
+        {"op": "mean", "field": "votes", "as": "avg_votes"},
+        {"op": "sum", "field": "gross", "as": "total_gross"}
+      ],
+      "groupby": ["genre"]
+    }
+  ],
+  "mark": {"type": "circle", "opacity": 0.8},
+  "encoding": {
+    "x": {
+      "field": "avg_votes",
+      "type": "quantitative",
+      "title": "Average Votes"
+    },
+    "y": {
+      "field": "avg_score",
+      "type": "quantitative",
+      "title": "Average IMDb Score"
+    },
+    "size": {
+      "field": "total_gross",
+      "type": "quantitative",
+      "title": "Total Gross Revenue (USD)",
+      "scale": {"domain": [1e6, 1e10]}
+    },
+    "color": {
+      "field": "genre",
+      "type": "nominal",
+      "title": "Genre",
+      "scale": {
+        "domain": [
+          "Action", "Adventure", "Animation", "Biography", "Comedy", "Crime",
+          "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Musical",
+          "Mystery", "Romance", "Sci-Fi", "Sport", "Thriller", "Western"
+        ],
+        "range": [
+          "#1f77b4", "#ff7f0e", "#2ca02c", "#9467bd", "#8c564b", "#e377c2",
+          "#7f7f7f", "#bcbd22", "#17becf", "#9edae5", "#d62728", "#ffbb78",
+          "#c49c94", "#c5b0d5", "#f7b6d2", "#17becf", "#aec7e8", "#b15928", "#393b79"
+        ]
+      }
+    },
+    "tooltip": [
+      {"field": "genre", "type": "nominal"},
+      {"field": "avg_score", "type": "quantitative", "format": ".2f", "title": "Avg Score"},
+      {"field": "avg_votes", "type": "quantitative", "format": ",", "title": "Avg Votes"},
+      {"field": "total_gross", "type": "quantitative", "format": ",", "title": "Total Gross (USD)"}
+    ]
+  }
+}
