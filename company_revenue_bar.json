@@ -34,6 +34,13 @@
         "labelExpr": "replace(datum.label, 'G', 'B')"
       }
     },
+    "color": {
+      "condition": {
+        "test": "datum.rank == 1",
+        "value": "#0d3b66"
+      },
+      "value": "#1f77b4"
+    },
     "tooltip": [
       { "field": "company", "type": "nominal", "title": "Company" },
       {

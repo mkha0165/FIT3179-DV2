@@ -1,11 +1,14 @@
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
-  background-color: #f5f5f5;
+  background-color: #FAF9F6;
 }
 
 h2 {
   text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-weight: 1000;
+  font-size: 1.7em;
 }
 
 .container {
@@ -24,230 +27,216 @@ h2 {
   max-width: 65%;
 }
 
-.analysis {
-  flex: 0 0 35%;
+
+/* Color-blind safe genre palette */
+.genre-action { color: #1f77b4; } /* Blue */
+.genre-adventure { color: #ff7f0e; } /* Orange */ 
+.genre-animation { color: #008080; } /* Teal */
+.genre-biography { color: #9467bd; } /* Purple  */
+.genre-comedy { color: #8c564b; } /* Brown  */
+.genre-crime { color: #e377c2; } /* Pink */
+.genre-drama { color: #7f7f7f; } /* Gray  */
+.genre-family { color: #ff1493; } /* Deep Pink  */
+.genre-fantasy { color: #17becf; } /* Cyan  */
+.genre-history { color: #9edae5; } /* Light Blue  */
+.genre-horror { color: #d62728; } /* Red  */
+.genre-music { color: #ffbb78; } /* Light Orange  */
+.genre-musical { color: #c49c94; } /* Light Brown  */
+.genre-mystery { color: #c5b0d5; } /* Light Purple  */
+.genre-romance { color: #f7b6d2; } /* Light Pink  */
+.genre-sci-fi { color: #daa520; } /* Gold  */
+.genre-sport { color: #5254a3; } /* Blue-Purple */
+.genre-thriller { color: #6b6ecf; } /* Purple-Blue */
+.genre-western { color: #9c9ede; } /* Light Purple */
+
+
+/* ====== Enhanced Analysis Boxes ====== */
+.analysis, .analysis2, .analysis3, .analysis4, 
+.analysis5, .analysis6, .analysis7 {
   text-align: left;
-  background-color: #ffffff;
-  padding: 15px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
-  font-size: 15px;
-
-  display: flex;              /* flex container */
-  flex-direction: column;     /* stack paragraphs vertically */
-  justify-content: center;    /* center vertically */
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1), 
+              0 2px 8px rgba(0,0,0,0.05),
+              inset 0 1px 0 rgba(255,255,255,0.8);
+  font-size: 15.5px;
+  margin-top: 10px;
+  width: 95%;
+  border: 1px solid rgba(0,0,0,0.08);
+  position: relative;
+  transition: all 0.3s ease;
+  font-family: 'Georgia', serif;
+  line-height: 1.6;
 }
 
-.analysis strong {
-  color: #222;
+/* Hover effect */
+.analysis:hover, .analysis2:hover, .analysis3:hover,
+.analysis4:hover, .analysis5:hover, .analysis6:hover,
+.analysis7:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15), 
+              0 4px 12px rgba(0,0,0,0.08);
 }
 
-.analysis .highlight-revenue {
+/* Add decorative elements */
+.analysis::before, .analysis2::before, .analysis3::before,
+.analysis4::before, .analysis5::before, .analysis6::before,
+.analysis7::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #1f77b4, #ff7f0e, #2ca02c);
+  border-radius: 12px 12px 0 0;
+}
+
+/* Fancy blockquote style */
+.analysis p, .analysis2 p, .analysis3 p,
+.analysis4 p, .analysis5 p, .analysis6 p,
+.analysis7 p {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 15px;
+}
+
+.analysis p::before, .analysis2 p::before, .analysis3 p::before,
+.analysis4 p::before, .analysis5 p::before, .analysis6 p::before,
+.analysis7 p::before {
+  content: "“";
+  position: absolute;
+  left: 0;
+  top: -5px;
+  font-size: 24px;
+  color: #1f77b4;
+  font-family: 'Times New Roman', serif;
+}
+
+/* Clean strong tags */
+.analysis strong, .analysis2 strong, .analysis3 strong,
+.analysis4 strong, .analysis5 strong, .analysis6 strong,
+.analysis7 strong {
+  color: #1a1a1a;
+  font-weight: 700;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+/* Enhanced genre colors without hover backgrounds */
+.genre-action, .genre-adventure, .genre-animation,
+.genre-biography, .genre-comedy, .genre-crime,
+.genre-drama, .genre-family, .genre-fantasy,
+.genre-history, .genre-horror, .genre-music,
+.genre-musical, .genre-mystery, .genre-romance,
+.genre-sci-fi, .genre-sport, .genre-thriller,
+.genre-western {
+  font-weight: 600;
+  padding: 1px 4px;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/* Highlight colors without backgrounds */
+.analysis .highlight-revenue, .analysis2 .highlight-revenue, 
+.analysis3 .highlight-revenue, .analysis4 .highlight-revenue,
+.analysis5 .highlight-revenue, .analysis6 .highlight-revenue,
+.analysis7 .highlight-revenue {
   color: #e6550d;
-  font-weight: bold;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border-left: 3px solid #e6550d;
 }
 
-.analysis .highlight-score {
+.analysis .highlight-score, .analysis2 .highlight-score,
+.analysis3 .highlight-score, .analysis4 .highlight-score,
+.analysis5 .highlight-score, .analysis6 .highlight-score,
+.analysis7 .highlight-score {
   color: #2171b5;
-  font-weight: bold;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border-left: 3px solid #2171b5;
 }
 
-/* ====== (Stacked Bar + Line) ====== */
-#vis2 {
-  background-color: white;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
-  width: 100%;
-}
-
-.analysis2 {
-  text-align: left;
-  background-color: #ffffff;
-  padding: 15px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
-  font-size: 15px;
-  margin-top: 10px;
-  width: 96%;
-}
-
-/* Make the chart and text stack vertically, left-aligned */
-.container.stacked {
-  flex-direction: column;   /* stack chart + analysis vertically */
-  align-items: flex-start;  /* align to the left */
-}
-
-.container.stacked #vis2,
-
-.container.stacked .analysis2 {
-  max-width: 100%;
-}
-
-.analysis2 strong {
-  color: #222;
-}
-
-.genre-action { color: #1f77b4; }
-.genre-adventure { color: #ff7f0e; }
-.genre-animation { color: #2ca02c; }
-.genre-biography { color: #9467bd; }
-.genre-comedy { color: #8c564b; }
-.genre-crime { color: #e377c2; }
-.genre-drama { color: #7f7f7f; }
-.genre-family { color: #bcbd22; }
-.genre-fantasy { color: #17becf; }
-.genre-history { color: #9edae5; }
-.genre-horror { color: #d62728; }
-.genre-music { color: #ffbb78; }
-.genre-musical { color: #c49c94; }
-.genre-mystery { color: #c5b0d5; }
-.genre-romance { color: #f7b6d2; }
-.genre-sci-fi { color: #17becf; }
-.genre-sport { color: #aec7e8; }
-.genre-thriller { color: #b15928; }
-.genre-western { color: #393b79; }
-
-
-
-/* ====== (Bar Chart) (Score by Genre) ====== */
-#vis3 {
-  background-color: white;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
-  width: 100%;
-}
-
-.analysis3 {
-  text-align: left;
-  background-color: #ffffff;
-  padding: 15px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
-  font-size: 15px;
-  margin-top: 10px;
-  width: 96%;
-}
-
-
-.container.stacked {
-  flex-direction: column;   
-  align-items: flex-start;  
-}
-
-.container.stacked #vis3 {
-  max-width: 100%
-}
-
-.container.stacked .analysis3 {
-  max-width: 65%;
-}
-
-.analysis3 strong {
-  color: #222;
-}
-
-/* ====== Side by Side Layout ====== */
-.container.side-by-side {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  align-items: flex-start;
-}
-
-.chart-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-/* ====== (Scatterplot: Gross vs Budget) ====== */
-#vis4 {
-  background-color: white;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
-  width: 100%;
-}
-
-.analysis4 {
-  text-align: left;
-  background-color: #ffffff;
-  padding: 15px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
-  font-size: 15px;
-  margin-top: 10px;
-  width: 96%;
-}
-
-/* ====== Horizontal Bar chart ====== */
-#vis5 {
-  background-color: white;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
-  width: 100%;
-}
-
-.analysis5 {
-  text-align: left;
-  background-color: #ffffff;
-  padding: 15px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
-  font-size: 15px;
-  margin-top: 10px;
-  width: 96%;
-}
-
-/* Remove or update these conflicting rules */
-.container.stacked #vis4,
-.container.stacked .analysis4,
-.container.stacked #vis5,
-.container.stacked .analysis5 {
-  max-width: 100%;
-}
-
-/* ====== (Runtime Histogram) ====== */
-#vis6 {
-  background-color: white;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
-  width: 100%;
-}
-
-.analysis6 {
-  text-align: left;
-  background-color: #ffffff;
-  padding: 15px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
-  font-size: 15px;
-  margin-top: 10px;
-  width: 96%;
-}
-
-/* ====== (Score by Votes Bubble Chart) ====== */
-#vis7 {
-  background-color: white;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
-  width: 100%;
-}
 
 .analysis7 {
-  text-align: left;
-  background-color: #ffffff;
-  padding: 15px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
-  font-size: 15px;
-  margin-top: 10px;
-  width: 96%;
+  width: 95% !important;
+  height: 11.0rem !important;
 }
+
+/* === Grid layout for vis2–vis7 + analyses === */
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 equal columns */
+  gap: 25px;
+  justify-items: center;
+  margin-top: 30px;
+}
+
+.chart-box {
+  width: 95%;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Uniform chart size */
+.chart-box > div[id^="vis"] {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* keeps proportions equal across screens */
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Uniform analysis box size */
+.chart-box .analysis2,
+.chart-box .analysis3,
+.chart-box .analysis4,
+.chart-box .analysis5,
+.chart-box .analysis6,
+.chart-box .analysis7 {
+  flex: 1;
+  height: 11rem; 
+  overflow: hidden;
+}
+
+/* Make layout responsive */
+@media (max-width: 1000px) {
+  .chart-grid {
+    grid-template-columns: 1fr; /* stack in one column on small screens */
+  }
+}
+
+.footer-credit {
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  text-align: right;
+  font-size: 13px;
+  color: #555;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.footer-credit a {
+  color: #007acc;
+  text-decoration: none;
+}
+
+.footer-credit a:hover {
+  text-decoration: underline;
+}
+
+
 
 

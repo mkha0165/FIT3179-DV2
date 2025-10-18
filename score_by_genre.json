@@ -1,58 +1,106 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 550,
-  "height": 430,
+  "height": 446,
   "data": { "url": "movies_merged.csv" },
 
-  "transform": [
-    { "filter": "isValid(datum.score) && datum.score > 0" }
-  ],
-
-  "mark": { "type": "bar", "cornerRadiusTopLeft": 3, "cornerRadiusTopRight": 3 },
-
-  "encoding": {
-    "x": {
-      "field": "genre",
-      "type": "nominal",
-      "title": "Genre",
-      "sort": "-y",
-      "axis": { "labelAngle": -30, "labelFontSize": 11, "titleFontSize": 13 }
-    },
-    "y": {
-      "aggregate": "mean",
-      "field": "score",
-      "type": "quantitative",
-      "title": "Average Movie Score"
-    },
-    "color": {
-      "field": "genre",
-      "type": "nominal",
-      "title": "Genre",
-      "legend": null,
-      "scale": {
-    "domain": [
-      "Action", "Adventure", "Animation", "Biography", "Comedy", "Crime",
-      "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Musical",
-      "Mystery", "Romance", "Sci-Fi", "Sport", "Thriller", "Western"
-    ],
-    "range": [
-      "#1f77b4", "#ff7f0e", "#2ca02c", "#9467bd", "#8c564b", "#e377c2",
-      "#7f7f7f", "#bcbd22", "#17becf", "#9edae5", "#d62728", "#ffbb78",
-      "#c49c94", "#c5b0d5", "#f7b6d2", "#17becf", "#aec7e8", "#b15928", "#393b79"
-    ]
-  }
-    },
-    "tooltip": [
-      { "field": "genre", "type": "nominal", "title": "Genre" },
-      {
-        "aggregate": "mean",
-        "field": "score",
-        "type": "quantitative",
-        "title": "Average Score",
-        "format": ".2f"
+  "layer": [
+    {
+      "transform": [
+        { "filter": "isValid(datum.score) && datum.score > 0" },
+        {
+          "aggregate": [
+            { "op": "mean", "field": "score", "as": "avg_score" }
+          ],
+          "groupby": ["genre"]
+        }
+      ],
+      "mark": { "type": "bar", "cornerRadiusTopLeft": 3, "cornerRadiusTopRight": 3 },
+      "encoding": {
+        "x": {
+          "field": "genre",
+          "type": "nominal",
+          "title": "Genre",
+          "sort": "-y",
+          "axis": { "labelAngle": -30, "labelFontSize": 11, "titleFontSize": 13 }
+        },
+        "y": {
+          "field": "avg_score",
+          "type": "quantitative",
+          "title": "Average Movie Score"
+        },
+        "color": {
+          "field": "genre",
+          "type": "nominal",
+          "title": "Genre",
+          "legend": null,
+          "scale": {
+            "domain": [
+              "Action", "Adventure", "Animation", "Biography", "Comedy", "Crime",
+              "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Musical",
+              "Mystery", "Romance", "Sci-Fi", "Sport", "Thriller", "Western"
+            ],
+            "range": [
+              "#1f77b4", "#ff7f0e", "#008080", "#9467bd", "#8c564b", "#e377c2",
+              "#7f7f7f", "#ff1493", "#17becf", "#9edae5", "#d62728", "#ffbb78",
+              "#c49c94", "#c5b0d5", "#f7b6d2", "#daa520", "#aec7e8", "#b15928", "#393b79"
+            ]
+          }
+        },
+        "tooltip": [
+          { "field": "genre", "type": "nominal", "title": "Genre" },
+          { "field": "avg_score", "type": "quantitative", "title": "Average Score", "format": ".2f" }
+        ]
       }
-    ]
-  },
+    },
+
+    {
+      "transform": [
+        { "filter": "isValid(datum.score) && datum.score > 0" },
+        {
+          "aggregate": [
+            { "op": "mean", "field": "score", "as": "avg_score" }
+          ],
+          "groupby": ["genre"]
+        },
+        {
+          "aggregate": [
+            { "op": "max", "field": "avg_score", "as": "max_score" }
+          ]
+        }
+      ],
+      "layer": [
+        {
+          "mark": {
+            "type": "rule",
+            "stroke": "black",
+            "strokeDash": [4, 4],
+            "strokeWidth": 1.5
+          },
+          "encoding": {
+            "y": { "field": "max_score", "type": "quantitative" },
+            "tooltip": [
+              { "field": "max_score", "type": "quantitative", "title": "Highest Avg Score", "format": ".2f" }
+            ]
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "x": 10,
+            "dy": -8,
+            "fontSize": 12,
+            "fontStyle": "italic",
+            "text": "Highest Average Movie Score (8.30)"
+          },
+          "encoding": {
+            "y": { "field": "max_score", "type": "quantitative" }
+          }
+        }
+      ]
+    }
+  ],
 
   "title": {
     "text": "Average Movie Score by Genre",

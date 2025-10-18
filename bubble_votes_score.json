@@ -31,7 +31,10 @@
       "field": "total_gross",
       "type": "quantitative",
       "title": "Total Gross Revenue (USD)",
-      "scale": {"domain": [1e6, 1e10]}
+      "scale": {"domain": [1e6, 1e10]},
+            "legend": {
+  "labelExpr": "datum.value >= 1e9 ? format(datum.value / 1e9, '.0f') + 'B' : format(datum.value / 1e6, '.0f') + 'M'"
+            }
     },
     "color": {
       "field": "genre",
@@ -44,9 +47,9 @@
           "Mystery", "Romance", "Sci-Fi", "Sport", "Thriller", "Western"
         ],
         "range": [
-          "#1f77b4", "#ff7f0e", "#2ca02c", "#9467bd", "#8c564b", "#e377c2",
-          "#7f7f7f", "#bcbd22", "#17becf", "#9edae5", "#d62728", "#ffbb78",
-          "#c49c94", "#c5b0d5", "#f7b6d2", "#17becf", "#aec7e8", "#b15928", "#393b79"
+          "#1f77b4", "#ff7f0e", "#008080", "#9467bd", "#8c564b", "#e377c2",
+          "#7f7f7f", "#ff1493", "#17becf", "#9edae5", "#d62728", "#ffbb78",
+          "#c49c94", "#c5b0d5", "#f7b6d2", "#daa520", "#aec7e8", "#b15928", "#393b79"
         ]
       }
     },

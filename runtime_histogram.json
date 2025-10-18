@@ -1,60 +1,66 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Histogram of movie counts by runtime.",
-  "data": {
-    "url": "movies_merged.csv"
-  },
+  "description": "Histogram of movie counts by runtime with interactive genre highlighting.",
+  "data": { "url": "movies_merged.csv" },
   "transform": [
+    { "filter": "datum.runtime > 40 && datum.runtime < 220" }
+  ],
+  "width": 604,
+  "height": 400,
+
+  "params": [
     {
-      "filter": "datum.runtime > 40 && datum.runtime < 220"
+      "name": "genreSelect",
+      "select": { "type": "point", "fields": ["genre"] }
     }
   ],
-  "width": 600,
-  "height": 400,
+
   "mark": "bar",
+
   "encoding": {
     "x": {
-       "field": "runtime",
-      "bin": {
-        "step": 10,
-        "extent": [40, 220]
-      },
+      "field": "runtime",
+      "bin": { "step": 10, "extent": [40, 220] },
       "title": "Runtime (minutes)",
-      "axis": {
-        "tickCount": 18,
-        "labelFlush": true
-      }
+      "axis": { "tickCount": 18, "labelFlush": true }
     },
     "y": {
       "aggregate": "count",
       "title": "Number of Movies"
     },
     "color": {
-      "field": "genre",
-      "type": "nominal",
-      "title": "Genre",
-      "scale": {
-        "domain": [
-          "Action", "Adventure", "Animation", "Biography", "Comedy", "Crime",
-          "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Musical",
-          "Mystery", "Romance", "Sci-Fi", "Sport", "Thriller", "Western"
-        ],
-        "range": [
-          "#1f77b4", "#ff7f0e", "#2ca02c", "#9467bd", "#8c564b", "#e377c2",
-          "#7f7f7f", "#bcbd22", "#17becf", "#9edae5", "#d62728", "#ffbb78",
-          "#c49c94", "#c5b0d5", "#f7b6d2", "#17becf", "#aec7e8", "#b15928", "#393b79"
-        ]
-      }
+      "condition": {
+        "param": "genreSelect",
+        "field": "genre",
+        "type": "nominal",
+        "scale": {
+          "domain": [
+            "Action", "Adventure", "Animation", "Biography", "Comedy", "Crime",
+            "Drama", "Family", "Fantasy", "History", "Horror", "Music", "Musical",
+            "Mystery", "Romance", "Sci-Fi", "Sport", "Thriller", "Western"
+          ],
+          "range": [
+            "#1f77b4", "#ff7f0e", "#008080", "#9467bd", "#8c564b", "#e377c2",
+            "#7f7f7f", "#ff1493", "#17becf", "#9edae5", "#d62728", "#ffbb78",
+            "#c49c94", "#c5b0d5", "#f7b6d2", "#daa520", "#aec7e8", "#b15928", "#393b79"
+          ]
+        }
+      },
+      "value": "gray"
     },
     "tooltip": [
-      {"field": "runtime", "type": "quantitative", "title": "Runtime Range (min)", "bin": "binned"},
-      {"aggregate": "count", "type": "quantitative", "title": "Movie Count"},
-      {"field": "genre", "type": "nominal", "title": "Genre"}
+      { "field": "runtime", "type": "quantitative", "title": "Runtime Range (min)", "bin": "binned" },
+      { "aggregate": "count", "type": "quantitative", "title": "Movie Count" },
+      { "field": "genre", "type": "nominal", "title": "Genre" }
     ]
   },
-    "title": {
+
+  "title": {
     "text": "Distribution of Movie Count by Runtime & Genre",
+    "subtitle": "💡 Click on a bar to highlight a genre (double-click to reset)",
     "anchor": "middle",
-    "fontSize": 15
+    "fontSize": 15,
+    "subtitleFontSize": 12,
+    "subtitleColor": "gray"
   }
 }
